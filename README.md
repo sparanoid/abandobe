@@ -18,3 +18,5 @@ This script may works for users only use Adobe products occasionally. You can ru
 ```bash
 sudo bash abandobe.bash
 ```
+
+After executing this script, you also need to disable the Finder integration under System Preferences → Extensions.
