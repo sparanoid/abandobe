@@ -11,9 +11,6 @@ declare -a adobeDaemonAgentDir=(
 );
 
 for daemonAgentDir in "${adobeDaemonAgentDir[@]}"; do
-  # pgrep -f "$(echo $daemonAgentDir)" > /dev/null;
-  # echo $daemonAgentDir
-
   find "$daemonAgentDir" -name 'com.adobe*' -delete -print;
 done;
 
