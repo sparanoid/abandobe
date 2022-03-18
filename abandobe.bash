@@ -3,6 +3,8 @@
 # Usage:
 # sudo bash abandobe.bash
 
+echo "You may be asked for password to process the cleanup. It's safe and trust me...";
+
 # Remove agents/daemons
 declare -a adobeDaemonAgentDir=(
   "$HOME/Library/LaunchAgents"
