@@ -33,29 +33,28 @@ declare -a adobeProcessList=(
 
 # Remove predefined processes
 for processName in "${adobeProcessList[@]}"; do
-  pgrep -f "$(echo $processName)" >/dev/null
-
-  if [ $? -ne 0 ]; then
+  if ! pgrep -f "$processName" >/dev/null; then
     echo "process not running, skipping: ${processName}"
     continue
   fi
 
-  results=$(pgrep -fl "$(echo $processName)")
-  echo $results | awk -v pid='' '{pid=$1; $1=""; print "\nkill process:" $0 " (" pid ")\n"}'
-  kill -9 $(echo $results | awk '{print $1}')
+  results=$(pgrep -fl "$processName")
+  echo "$results" | awk -v pid='' '{pid=$1; $1=""; print "\nkill process:" $0 " (" pid ")\n"}'
+  pid="$(awk '{print $1}' <<<"$results")"
+  kill -9 "$pid"
 
-  if pgrep -f "$(echo $processName)" >/dev/null; then
-    killall -9 "$(echo processName)"
+  if pgrep -f "$processName" >/dev/null; then
+    killall -9 "$processName"
   fi
 done
 
 # Remove processes start with Adobe
 for processID in $(pgrep -f 'Adobe|adobe'); do
-  processName=$(ps -p $processID -o command | awk 'FNR == 2 {print}')
+  processName=$(ps -p "$processID" -o command | awk 'FNR == 2 {print}')
   if [ -z "$processName" ]; then
     continue
   fi
 
-  echo "kill process:" $processName "\n"
-  kill -9 $processID
+  printf "kill process: %s\n" "$processName"
+  kill -9 "$processID"
 done
