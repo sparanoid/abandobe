@@ -10,6 +10,7 @@ declare -a adobeDaemonAgentDir=(
   "$HOME/Library/LaunchAgents"
   '/Library/LaunchAgents'
   '/Library/LaunchDaemons'
+  '/Library/PrivilegedHelperTools'
 )
 
 for daemonAgentDir in "${adobeDaemonAgentDir[@]}"; do
